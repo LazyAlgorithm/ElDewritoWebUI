@@ -1,0 +1,17 @@
+$(document).ready(function() {
+	$("#ctgForm").submit(function(e) {
+		e.preventDefault();
+		$.ajax({
+			type : "POST",
+			url : "saveCtg.php",
+			data : $("#ctgForm").serialize(),
+			beforeSend : function() {
+			  //$(".post_submitting").show().html("<center><img src='images/loading.gif'/></center>");
+			},
+			success : function(response) {
+				alert(response);
+			}
+		});
+		e.preventDefault();
+	});
+})
