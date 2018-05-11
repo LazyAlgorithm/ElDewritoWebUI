@@ -23,6 +23,8 @@
 	//echo '</pre>';
 	
 	$jsonArray = loadVotingJson();
+	
+	$permission = GetUserPermission(strtolower($_SESSION['uName']));
 ?>
 <html>
 	<head>
@@ -55,7 +57,7 @@
               <li class="nav-item">
                 <a data-div="congigMain" class="nav-link active" href="#">
                   <span data-feather="server"></span>
-                  Server
+                  Server Config
                 </a>
               </li>
               <li class="nav-item">
@@ -76,6 +78,12 @@
             </h6>
 			<ul class="nav flex-column">
 			  <li class="nav-item">
+                <a onclick="listPlayers();" data-div="playersMain" class="nav-link" href="#">
+                  <span data-feather="users"></span>
+                  Players
+                </a>
+              </li>
+			  <li class="nav-item">
                 <a data-div="rconMain" id="rconTabControl" class="nav-link" href="#">
                   <span data-feather="terminal"></span>
                   RCON Console
@@ -84,7 +92,6 @@
             </ul>
           </div>
         </nav>
-
         <main id="congigMain" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 		<form id="ctgForm">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -206,17 +213,6 @@
             </div>
 			</form>
         </main>
-		<main id="rconMain" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="display:none;">
-			<div class="pagination-centered text-center" style="width: 100%; height: 90%;" id="consoleContainer">
-				<textarea id="messageLog" class="form-control BottomRadius" aria-label="With textarea" readonly></textarea>
-				<div id="commandContainer" style="" class="input-group mb-3 ">
-					<input type="text" id="rconCommand" class="form-control TopRadius" placeholder="RCON Command" aria-label="Recipient's username" aria-describedby="basic-addon2">
-					<div class="input-group-append" style="border-radius: 0 !important">
-						<button id="commandSubmit" class="btn btn-outline-secondary TopRadius" type="button">Send</button>
-					</div>
-				</div>
-			</div>
-		</main>
 		<main id="voteMain" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="display:none;">
 		<form id="voteForm">
 			<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -371,6 +367,51 @@ foreach ($jsonArray['Types'] as &$variant)
 			</div>
 		</form>
 		</main>
+		<main id="rconMain" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="display:none;">
+			<div class="pagination-centered text-center" style="width: 100%; height: 90%;" id="consoleContainer">
+				<textarea id="messageLog" class="form-control BottomRadius" aria-label="With textarea" readonly></textarea>
+				<div id="commandContainer" style="" class="input-group mb-3 ">
+					<input type="text" id="rconCommand" class="form-control TopRadius" placeholder="RCON Command" aria-label="Recipient's username" aria-describedby="basic-addon2">
+					<div class="input-group-append" style="border-radius: 0 !important">
+						<button id="commandSubmit" class="btn btn-outline-secondary TopRadius" type="button">Send</button>
+					</div>
+				</div>
+			</div>
+		</main>	
+		<main id="playersMain" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="display:none;">
+			<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+				<h1 class="h2">Players On Server</h1>
+				<div class="btn-toolbar mb-2 mb-md-0">
+					<button  class="btn btn-sm btn-outline-secondary btn-save" onclick="listPlayers();">
+						<span data-feather="save"></span>
+						Refresh List
+					</button>
+				</div>
+			</div>
+			<div class="container-fluid variantGroup" id="">
+				<h1 class="h5 font-weight-normal">Players</h1>
+				<div id="playerListDiv" class="list-group list-group-flush addBorder">
+					<div class="list-group-item disabled list-group-info">
+						<div class="variantContent">Player Name</div>
+						<div class="variantContent">User ID</div>
+						<div class="variantContent">IP Adress</div>
+						<div class="variantContent">Controls</div>
+					</div>
+					<!--<div id="playerItem" class="list-group-item">
+						<div class="playerContent">Lazy Algorithm</div>
+						<div class="playerContent">27bb07c8622bfc20</div>
+						<div class="playerContent">68.39.255.32</div>
+						<div class="playerContent">
+							<div class="btn-group btn-group-sm" role="group">
+							  <button type="button" onclick="kickUser('27bb07c8622bfc20');" class="btn btn-warning">Kick</button>
+							  <button type="button" onclick="tmpBanUser('27bb07c8622bfc20');" class="btn btn-danger">Temp Ban</button>
+							  <button type="button" onclick="banUser('27bb07c8622bfc20');" class="btn btn-dark">Ban</button>
+							</div>
+						</div>
+					</div>-->
+				</div>
+			</div>
+		</main>
 	  </div>
     </div>
 	
@@ -390,6 +431,7 @@ foreach ($jsonArray['Types'] as &$variant)
     <script>
       feather.replace();
     </script>
+	<script src="js/ElRcon.js"></script>
 	<script src="js/rcon.js"></script>
 	</body>
 </html>

@@ -245,6 +245,25 @@
 		$mysqli->close();
 	}
 	
+	function GetUserPermission($login) {
+		global $MYSQL_Host;
+		global $MYSQL_Username;
+		global $MYSQL_Password;
+		global $MYSQL_DB;
+		$mysqli = new mysqli($MYSQL_Host,$MYSQL_Username,$MYSQL_Password,$MYSQL_DB);
+		if ($mysqli->connect_errno) {
+			die("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
+		}
+		$stmt = $mysqli->prepare("SELECT * FROM users WHERE login=\"" . $login . "\"");
+		$stmt->execute();
+		$stmt->bind_result($id, $name, $login, $dppass, $dbsalt, $level);
+			
+		while ($stmt->fetch()) {
+			return $level;
+		}
+		$mysqli->close();
+	}
+	
 	function GetHash($username) {
 		global $MYSQL_Host;
 		global $MYSQL_Username;

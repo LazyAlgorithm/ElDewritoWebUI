@@ -182,6 +182,17 @@ textarea {
 	text-align: center;
 }
 
+#playerItem:hover {
+	background-color: #f9f9f9;
+}
+
+.playerContent {
+	float: left;
+	width: 25%;
+	text-align: center;
+	line-height: 30px;
+}
+
 .list-group-info {
 	line-height: 6px;
 	background-color: #e9ecef !important;
