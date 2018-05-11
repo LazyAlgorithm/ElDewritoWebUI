@@ -2,6 +2,11 @@ var info = getRconPass();
 var pword = info[2];
 var host = info[0];
 var rconPort = info[1];
+var commands = [];
+var commandsCount = 0;
+var selectedComm = null;
+var upPressed = false;
+var downPressed = false;
 var previousPlayers = "";
 
 var socket = new ElRcon(host, rconPort, pword);
@@ -54,6 +59,9 @@ $("#commandSubmit").click(function(e) {
 	AddToLog("Sent:  " + $("#rconCommand").val());
 	socket.SendMessage($("#rconCommand").val(), function(mess) {
 		AddToLog("Reply: " + mess);
+		commandsCount = commands.push($("#rconCommand").val()) - 1;
+		selectedComm = null;
+		$("#rconCommand").val("");
 		/*connectRCON($("#rconCommand").val(), function(msg) {
 			commandsCount = commands.push($("#rconCommand").val()) - 1;
 			selectedComm = null;
@@ -62,10 +70,51 @@ $("#commandSubmit").click(function(e) {
 	});
 });
 
+function selectCommand(num) {
+	if (num > 0) {
+		if (selectedComm == null) 
+			selectedComm = commandsCount;
+		else if ((selectedComm - num) >= 0) {
+			selectedComm -= num;
+		}
+	}
+	else {
+		if (selectedComm == null) 
+			selectedComm = 0;
+		else if ((selectedComm - num) <= commandsCount) {
+			selectedComm -= num;
+		}
+	}
+	$("#rconCommand").val(commands[selectedComm]);
+}
+
 $("#rconCommand").keypress(function(e) {
 	if(e.which == 13) {
 		if ($("#rconCommand").val() != "")
 			$( "#commandSubmit" ).click();
+	}
+});
+
+$("#rconCommand").keydown(function(e){
+	if (e.keyCode == 38 && !upPressed) { 
+	   upPressed = true;
+	   selectCommand(1);
+	   return false;
+	}
+	if (e.keyCode == 40 && !downPressed) { 
+	   downPressed = true;
+	   selectCommand(-1);
+	   return false;
+	}
+});
+$("#rconCommand").keyup(function(e){
+	if (e.keyCode == 38 && upPressed) { 
+	   upPressed = false;
+	   return false;
+	}
+	if (e.keyCode == 40 && downPressed) { 
+	   downPressed = false;
+	   return false;
 	}
 });
 
