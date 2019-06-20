@@ -14,12 +14,12 @@ var socket = new ElRcon(host, rconPort, pword);
 $(document).ready(function() {
 	AddToLog("Attepting to connect");
 	socket.Connect(function(mess) { 
-		AddToLog("Connection Accepted");
+		AddToLog("Connection accepted");
 		//listPlayers();
 		setInterval(function(){ listPlayers(); }, 3000);
 	},
 	function (msg) {
-		//AddToLog("Server: " + msg);
+		//AddToLog("Reply: " + msg);
 	});
 });
 
@@ -51,7 +51,7 @@ function AddToLog(message) {
 	if ($("#messageLog").val() != "")
 		var newAdd = "\r\n" + message.toString().replace(/\n|\r/g, "");
 	$("#messageLog").val($("#messageLog").val() + newAdd);
-	console.log(message);
+	//console.log(message);
 	$('#messageLog').scrollTop($('#messageLog')[0].scrollHeight);
 }
 

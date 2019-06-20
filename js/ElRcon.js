@@ -125,7 +125,6 @@ class ElRcon {
 			this.waitForPrevMessages(function (message) {
 				par.isSending = true;
 				par.socket.send(message);
-				//while(this.isSending) { };
 				par.waitForMessages(callback, par.lastMessage);
 				return par.lastMessage;
 			}, message);
@@ -135,7 +134,6 @@ class ElRcon {
 			this.waitForConnection(function() {
 				par.isSending = true;
 				par.socket.send(par.pass);
-				//while(this.isSending) { };
 				par.waitForMessages(callback,par.lastMessage);
 				if (par.hadshakeSuccess) par.SendMessage(message);
 			});

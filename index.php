@@ -90,6 +90,17 @@
                 </a>
               </li>
             </ul>
+			<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+				<span>Settings</span>
+            </h6>
+			<ul class="nav flex-column">
+			  <li class="nav-item">
+                <a onclick="" data-div="usersMain" class="nav-link" href="#">
+                  <span data-feather="users"></span>
+                  Users
+                </a>
+              </li>
+            </ul>
           </div>
         </nav>
         <main id="congigMain" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
@@ -397,18 +408,41 @@ foreach ($jsonArray['Types'] as &$variant)
 						<div class="variantContent">IP Adress</div>
 						<div class="variantContent">Controls</div>
 					</div>
-					<!--<div id="playerItem" class="list-group-item">
-						<div class="playerContent">Lazy Algorithm</div>
-						<div class="playerContent">27bb07c8622bfc20</div>
-						<div class="playerContent">68.39.255.32</div>
-						<div class="playerContent">
-							<div class="btn-group btn-group-sm" role="group">
-							  <button type="button" onclick="kickUser('27bb07c8622bfc20');" class="btn btn-warning">Kick</button>
-							  <button type="button" onclick="tmpBanUser('27bb07c8622bfc20');" class="btn btn-danger">Temp Ban</button>
-							  <button type="button" onclick="banUser('27bb07c8622bfc20');" class="btn btn-dark">Ban</button>
+				</div>
+			</div>
+		</main>
+		<main id="usersMain" role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="display:none;">
+			<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+				<h1 class="h2">Users</h1>
+				<div class="btn-toolbar mb-2 mb-md-0">
+					<!--<button  class="btn btn-sm btn-outline-secondary btn-save" onclick="listPlayers();">
+						<span data-feather="save"></span>
+						Refresh List
+					</button>-->
+				</div>
+			</div>
+			<div class="container-fluid variantGroup" id="">
+				<h1 class="h5 font-weight-normal">Players</h1>
+				<div id="playerListDiv" class="list-group list-group-flush addBorder">
+					<div class="list-group-item disabled list-group-info">
+						<div class="row">
+							<div class="col">
+							  Username
+							</div>
+							<div class="col">
+							  Controls
+							</div>
+							<div class="col">
+							  Controls
+							</div>
+							<div class="col">
+							  Controls
+							</div>
+							<div class="col">
+							  Controls
 							</div>
 						</div>
-					</div>-->
+					</div>
 				</div>
 			</div>
 		</main>
